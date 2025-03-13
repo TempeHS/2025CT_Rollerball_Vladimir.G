@@ -14,13 +14,14 @@ public class PlayerController : MonoBehaviour
  private float movementY;
 
 
- public float speed = 10; 
+ public float speed = 5; 
  public TextMeshProUGUI countText;
  public GameObject winTextObject;
 
  void Start()
    {
       SetCountText();
+      Destroy(GameObject.FindGameObjectWithTag("Enemy"));
       rb = GetComponent<Rigidbody>();
       count = 0;
       winTextObject.SetActive(false);
@@ -38,7 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         countText.text = "Count: " + count.ToString();
         
-         if (count >= 12)
+         if (count >= 20)
         {
             winTextObject.SetActive(true);
         }
