@@ -2,10 +2,10 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
+{
+public Transform player;
 
- public Transform player;
-
- private NavMeshAgent navMeshAgent;
+private NavMeshAgent navMeshAgent;
 
  void Start()
     {
@@ -19,5 +19,5 @@ public class EnemyMovement : MonoBehaviour
             navMeshAgent.SetDestination(player.position);
         }
     }
-
+}
 
