@@ -14,9 +14,41 @@ public class PlayerController : MonoBehaviour
  private float movementY;
 
 
- public float speed = 5; 
+ public float speed = 25; 
  public TextMeshProUGUI countText;
  public GameObject winTextObject;
+
+//code for jump
+     
+     public class Player : MonoBehaviour {
+     
+         public Vector3 jump;
+         public float jumpForce = 2.0f;
+     
+         public bool isGrounded;
+         Rigidbody rb;
+         void Start(){
+             rb = GetComponent<Rigidbody>();
+             jump = new Vector3(0.0f, 2.0f, 0.0f);
+         }
+     
+         void OnCollisionStay()
+         {
+             isGrounded = true;
+         }
+         void OnCollisionExit(){
+           isGrounded = false;
+     }
+         void Update(){
+             if(Input.GetKeyDown(KeyCode.Space) && isGrounded){
+     
+                 rb.AddForce(jump * jumpForce, ForceMode.Impulse);
+                 isGrounded = false;
+             }
+         }
+     }
+//
+
 
  void Start()
    {
@@ -64,7 +96,7 @@ public class PlayerController : MonoBehaviour
 
    private void OnCollisionEnter(Collision collision)
 {
-   if (collision.gameObject.CompareTag("Enemy"))
+   if (collision.gameObject.CompareTag("EnemyObject"))
    {
        // Destroy the current object
        Destroy(gameObject); 
