@@ -8,46 +8,16 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
 
- private Rigidbody rb; 
- private int count;
- private float movementX;
- private float movementY;
+private Rigidbody rb; 
+private int count;
+private float movementX;
+private float movementY;
+ 
+public TextMeshProUGUI countText;
+public GameObject winTextObject;
+public float speed;
+public float hop;
 
-
- public float speed = 25; 
- public TextMeshProUGUI countText;
- public GameObject winTextObject;
-
-//code for jump
-     
-     public class Player : MonoBehaviour {
-     
-         public Vector3 jump;
-         public float jumpForce = 2.0f;
-     
-         public bool isGrounded;
-         Rigidbody rb;
-         void Start(){
-             rb = GetComponent<Rigidbody>();
-             jump = new Vector3(0.0f, 2.0f, 0.0f);
-         }
-     
-         void OnCollisionStay()
-         {
-             isGrounded = true;
-         }
-         void OnCollisionExit(){
-           isGrounded = false;
-     }
-         void Update(){
-             if(Input.GetKeyDown(KeyCode.Space) && isGrounded){
-     
-                 rb.AddForce(jump * jumpForce, ForceMode.Impulse);
-                 isGrounded = false;
-             }
-         }
-     }
-//
 
 
  void Start()
@@ -61,11 +31,36 @@ public class PlayerController : MonoBehaviour
 
  void OnMove(InputValue movementValue)
     {
-
         Vector2 movementVector = movementValue.Get<Vector2>();
         movementX = movementVector.x; 
         movementY = movementVector.y; 
     }
+
+/// <summary>
+
+// chnage integrate
+
+void FixedUpdate ()
+    {
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis ("Vertical");
+
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+
+        GetComponent<Rigidbody>().AddForce (movement * speed * Time.deltaTime);
+
+        {
+            if (Input.GetKeyDown ("space") && GetComponent<Rigidbody>().transform.position.y <= 0.6250001f) {
+                Vector3 jump = new Vector3 (0.0f, 200.0f, 0.0f);
+
+                GetComponent<Rigidbody>().AddForce (jump);
+            }
+        }
+
+    }
+
+/// </summary>
+   
    
    void SetCountText() 
     {
