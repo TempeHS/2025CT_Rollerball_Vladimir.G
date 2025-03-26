@@ -35,31 +35,6 @@ public float hop;
         movementX = movementVector.x; 
         movementY = movementVector.y; 
     }
-
-/// <summary>
-
-// chnage integrate
-
-void FixedUpdate ()
-    {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis ("Vertical");
-
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-
-        GetComponent<Rigidbody>().AddForce (movement * speed * Time.deltaTime);
-
-        {
-            if (Input.GetKeyDown ("space") && GetComponent<Rigidbody>().transform.position.y <= 0.6250001f) {
-                Vector3 jump = new Vector3 (0.0f, 200.0f, 0.0f);
-
-                GetComponent<Rigidbody>().AddForce (jump);
-            }
-        }
-
-    }
-
-/// </summary>
    
    
    void SetCountText() 
@@ -74,9 +49,21 @@ void FixedUpdate ()
     }
  private void FixedUpdate() 
     {
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis ("Vertical");
+
         Vector3 movement = new Vector3 (movementX, 0.0f, movementY);
 
-        rb.AddForce(movement * speed); 
+        rb.AddForce(movement * speed);
+
+        GetComponent<Rigidbody>().AddForce (movement * speed * Time.deltaTime); 
+        {
+            if (Input.GetKeyDown ("space") && GetComponent<Rigidbody>().transform.position.y <= 6.6250001f) {
+                Vector3 jump = new Vector3 (0.0f, 200.0f, 0.0f);
+
+                GetComponent<Rigidbody>().AddForce (jump);
+            }
+        }
     }
 
  void OnTriggerEnter(Collider other) 
