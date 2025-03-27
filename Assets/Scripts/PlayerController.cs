@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
         bool shouldJump = GetComponent<Rigidbody>().transform.position.y <= 1.6250001f;
         if (Input.GetKeyDown("space") && shouldJump)
         {
-            Vector3 jump = new Vector3(0.0f, 200.0f, 0.0f);
+            Vector3 jump = new Vector3(0.0f, 1000.0f, 0.0f);
 
             GetComponent<Rigidbody>().AddForce(jump);
         }
